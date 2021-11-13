@@ -22,6 +22,13 @@ public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    //https://habr.com/ru/post/334636/
+
+    /*В основном стоит избегать внедрения через поля. Как альтернативу для внедрения следует использовать сеттеры или конструкторы.
+      У каждого из них есть свои преимущества и недостатки в зависимости от ситуации. Однако так как эти подходы можно смешивать,
+      это не выбор «или-или» и вы можете в одном классе комбинировать инъекцию и через сеттер, и через конструктор.
+      Конструкторы больше подходят для обязательных зависимостей и при нужде в неизменяемых объектах.
+      Сеттеры лучше подходят для опциональных зависимостей.*/
     @Autowired
     public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
