@@ -49,8 +49,8 @@ public class UserController {
         if (!ObjectUtils.isEmpty(listErrors)) return listErrors;
 
         User user = userService.updateUser(userDTO, principal);
-        UserDTO userUpdate = userFacade.userToUserDTO(user);
+        UserDTO userUpdated = userFacade.userToUserDTO(user);
 
-        return new ResponseEntity<>(userUpdate, HttpStatus.OK);
+        return new ResponseEntity<>(userUpdated, HttpStatus.OK);
     }
 }
