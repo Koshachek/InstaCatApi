@@ -5,6 +5,8 @@ import com.example.instaCat.entity.User;
 import com.example.instaCat.facade.UserFacade;
 import com.example.instaCat.service.UserService;
 import com.example.instaCat.validators.ResponseErrorValidator;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +46,7 @@ public class UserController {
     }
 
     @PostMapping("/update")
+    @Operation(summary = "updateUser", security = @SecurityRequirement(name = "bearerAuth"))
     public ResponseEntity<Object> updateUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult, Principal principal) {
         ResponseEntity<Object> listErrors = responseErrorValidator.mappedValidatorService(bindingResult);
         if (!ObjectUtils.isEmpty(listErrors)) return listErrors;
