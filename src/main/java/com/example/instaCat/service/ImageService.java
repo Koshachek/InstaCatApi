@@ -5,7 +5,6 @@ import com.example.instaCat.entity.Post;
 import com.example.instaCat.entity.User;
 import com.example.instaCat.exceptions.ImageNotFoundException;
 import com.example.instaCat.repository.ImageRepository;
-import com.example.instaCat.repository.PostRepository;
 import com.example.instaCat.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,13 +29,11 @@ public class ImageService {
     public static final Logger LOG = LoggerFactory.getLogger(ImageService.class);
 
     private final ImageRepository imageRepository;
-    private final PostRepository postRepository;
     private final UserRepository userRepository;
 
     @Autowired
-    public ImageService(ImageRepository imageRepository, PostRepository postRepository, UserRepository userRepository) {
+    public ImageService(ImageRepository imageRepository, UserRepository userRepository) {
         this.imageRepository = imageRepository;
-        this.postRepository = postRepository;
         this.userRepository = userRepository;
     }
 

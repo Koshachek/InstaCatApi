@@ -45,13 +45,13 @@ public class CommentController {
     }
 
     @PostMapping("/{commentId}/delete")
-    public ResponseEntity<MessageResponse> deletePost(@PathVariable("commentId") String commentId) {
+    public ResponseEntity<MessageResponse> deleteComment(@PathVariable("commentId") String commentId) {
         commentService.deleteComment(Long.parseLong(commentId));
         return new ResponseEntity<>(new MessageResponse("The comment " + commentId + " were deleted"), HttpStatus.OK);
     }
 
     @GetMapping("/{postId}/all")
-    public ResponseEntity<List<CommentDTO>> getAllCommentsToPost(@PathVariable("postId") String postId) {
+    public ResponseEntity<List<CommentDTO>> getAllCommentsForPost(@PathVariable("postId") String postId) {
         List<CommentDTO> commentDTOList = commentService.getAllCommentsForPost(Long.parseLong(postId))
                 .stream()
                 .map(commentFacade::commentToCommentDTO)
