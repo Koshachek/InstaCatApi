@@ -42,10 +42,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         /*
-        * Cross-Origin Resource Sharing (CORS) — механизм, использующий дополнительные HTTP-заголовки,
-        * чтобы дать возможность агенту пользователя получать разрешения на доступ к выбранным ресурсам с сервера
-        * на источнике (домене), отличном от того, что сайт использует в данный момент.
-        * */
+         * Cross-Origin Resource Sharing (CORS) — механизм, использующий дополнительные HTTP-заголовки,
+         * чтобы дать возможность агенту пользователя получать разрешения на доступ к выбранным ресурсам с сервера
+         * на источнике (домене), отличном от того, что сайт использует в данный момент.
+         * */
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint) //зададим класс который будет обрабатывать ошибку в нашем случае - jwtAuthenticationEntryPoint
                 .and()
@@ -65,10 +65,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(configUserDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 
-    //swagger
+    //swagger, actuator, prometheus
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**");
+        web.ignoring().antMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**",
+                "/actuator", "/actuator/health", "/actuator/prometheus");
     }
 
     @Override
@@ -79,7 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     //для сохранения пароля в БД в шифрованном виде
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
