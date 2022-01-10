@@ -1,5 +1,6 @@
 package com.example.instaCat.controller;
 
+import com.example.instaCat.exceptions.UserAlreadyExistException;
 import com.example.instaCat.payload.request.LoginRequest;
 import com.example.instaCat.payload.request.SignupRequest;
 import com.example.instaCat.payload.response.JWTSuccessResponse;
@@ -49,8 +50,13 @@ public class AuthController {
         if (!ObjectUtils.isEmpty(listErrors)) return listErrors;
 
         //пробуем создать юзера
-        userService.createUser(signupRequest);
-        return ResponseEntity.ok(new MessageResponse("Registration successfully completed"));
+        try {
+            userService.createUser(signupRequest);
+            return ResponseEntity.ok(new MessageResponse("Registration successfully completed"));
+        }catch (Exception e){
+            return ResponseEntity.ok(e.getMessage());
+        }
+
     }
 
 
