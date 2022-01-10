@@ -53,7 +53,7 @@ public class AuthController {
         try {
             userService.createUser(signupRequest);
             return ResponseEntity.ok(new MessageResponse("Registration successfully completed"));
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.ok(e.getMessage());
         }
 
