@@ -37,12 +37,18 @@ public class UserService {
 
     public User createUser(SignupRequest userIn) {
         User user = new User();
+//        Passport passport = new Passport();
         user.setEmail(userIn.getEmail());
         user.setFirstname(userIn.getFirstname());
         user.setLastname(userIn.getLastname());
         user.setUsername(userIn.getUsername());
         user.setPassword(bCryptPasswordEncoder.encode(userIn.getPassword()));
         user.getRoles().add(ERole.ROLE_USER);
+
+//        passport.setSeries(userIn.getSeries());
+//        passport.setNumber(userIn.getNumber());
+//        user.setPassport(passport);
+
 
         try {
             LOG.info("Saving user {}", userIn.getEmail());

@@ -2,6 +2,7 @@ package com.example.instaCat.entity;
 
 import com.example.instaCat.entity.enums.ERole;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,7 +13,7 @@ import java.util.*;
 
 @Data
 @Entity
-public class User implements UserDetails { //Postgres: class Users
+public class User implements UserDetails { //Postgres: class Users а также можем использовать аннотацию Table
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,8 +40,13 @@ public class User implements UserDetails { //Postgres: class Users
     @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     private LocalDateTime createDate;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
+
+//    @OneToOne(optional = false, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "passport_id")
+//    private Passport passport;
 
     @ElementCollection(targetClass = ERole.class)
     @CollectionTable(name = "user_role",

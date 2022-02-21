@@ -3,6 +3,7 @@ package com.example.instaCat.controller;
 import com.example.instaCat.dto.UserDTO;
 import com.example.instaCat.entity.User;
 import com.example.instaCat.facade.UserFacade;
+import com.example.instaCat.repository.UserRepository;
 import com.example.instaCat.service.UserService;
 import com.example.instaCat.validators.ResponseErrorValidator;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -28,6 +30,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private ResponseErrorValidator responseErrorValidator;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/")
     public ResponseEntity<UserDTO> getCurrentUser(Principal principal) {
@@ -55,5 +59,10 @@ public class UserController {
         UserDTO userUpdated = userFacade.userToUserDTO(user);
 
         return new ResponseEntity<>(userUpdated, HttpStatus.OK);
+    }
+
+    @GetMapping("/allUser")
+    public List<User> getUsers() {
+        return userRepository.findAll();
     }
 }

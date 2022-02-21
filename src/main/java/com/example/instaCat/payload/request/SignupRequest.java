@@ -43,4 +43,10 @@ public class SignupRequest {
 
     @NotEmpty(message = "Please enter your password again")
     private String confirmPassword;
+//
+//    @NotEmpty(message = "Please enter your series again")
+//    private String series;
+//
+//    @NotEmpty(message = "Please enter your number again")
+//    private String number;
 }
